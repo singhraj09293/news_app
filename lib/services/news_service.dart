@@ -7,7 +7,28 @@ class NewsService {
   Future<List<ArticleModel>> getTopHeadlines() async {
     final response = await dio.get(
       'everything',
-      queryParameters: {'q':'India', 'apikey': Constraint.apiKey,'language' : 'en'},
+      queryParameters: {
+        'q': 'India',
+        'apikey': Constraint.apiKey,
+        'language': 'en',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = response.data['articles'];
+      return (data as List).map((e) => ArticleModel.fromMap(e)).toList();
+    } else {
+      throw Exception('Error in StatusCode: ${response.statusCode}');
+    }
+  }
+
+  Future<List<ArticleModel>>?searchNews(String query) async {
+    final response = await dio.get(
+      'everything',
+      queryParameters: {
+        'q': query,
+        'apikey': Constraint.apiKey,
+        'language': 'en',
+      },
     );
     if (response.statusCode == 200) {
       final data = response.data['articles'];
