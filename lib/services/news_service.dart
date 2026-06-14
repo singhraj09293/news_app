@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:news_app/constraint.dart';
 import 'package:news_app/model/article_model.dart';
 
