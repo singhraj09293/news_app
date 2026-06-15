@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:news_app/screens/leadings/saved_article.dart';
+import 'package:news_app/screens/leadings/setting.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -19,75 +21,128 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: user.photoURL != null
-                  ? NetworkImage(user.photoURL!)
-                  : null,
-              child: user.photoURL == null ? Text(user.displayName![0],style: TextStyle(
-                fontSize: 35
-              ),) : null,
-            ),
-            SizedBox(height: 20),
-            Text(
-              user.displayName!,
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black,
-              fontSize: 30),
-            ),
-            SizedBox(height: 5),
-            Text(user.email!, style: TextStyle(color: Colors.grey, fontSize: 22)),
-            SizedBox(height: 10,),
-            Divider(),
-            SizedBox(height: 10,),
-            Row(
-  
-              children: [
-                Icon(Icons.folder,size: 30,),
-                SizedBox(width: 20),
-                Text('Saved Article', style: TextStyle(color: Colors.black,fontSize: 22)),
-              ],
-            ),
-            SizedBox(height: 20),
-            Row(
-              children: [
-                Icon(Icons.settings, color: Colors.grey,size: 25,),
-                SizedBox(width: 10),
-                Text('Setting', style: TextStyle(color: Colors.black,fontSize: 22)),
-              ],
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding: EdgeInsets.all(12),
-                  fixedSize: Size(double.infinity, 55),
+      body: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 250,
+              width: double.infinity,
+              decoration: BoxDecoration(color: Colors.blueAccent),
+              child: Center(
+                child: CircleAvatar(
+                  radius: 53,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 50,
+                    child: Text(
+                      user.displayName![0],
+                      style: TextStyle(
+                        color: Colors.blue.shade700,
+                        fontSize: 40,
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  signout();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 200,
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              height: MediaQuery.of(context).size.height - 230,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.logout,color: Colors.white,size: 20,),
-                    SizedBox(width: 10),
-                    Text('Logout',style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20
-                    ),),
+                    Text(
+                      user.displayName!,
+                      style: TextStyle(color: Colors.black, fontSize: 25),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      user.email!,
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text('Saved Articles'),
+                            leading: Icon(
+                              Icons.bookmark,
+                              color: Colors.blueAccent,
+                            ),
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => SavedArticle(),
+                              ),
+                            ),
+                          ),
+                          Divider(),
+                          ListTile(
+                            title: Text('Setting'),
+                            leading: Icon(
+                              Icons.settings,
+                              color: Colors.blueAccent,
+                            ),
+                            onTap: () {
+                              print('settinh');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => Setting()),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 200),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.all(15),
+                        fixedSize: Size(350, 55),
+                      ),
+                      onPressed: () => signout(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.logout, color: Colors.white),
+                          SizedBox(width: 10),
+                          Text(
+                            'SignOut',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
