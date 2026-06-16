@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:news_app/screens/leadings/saved_article.dart';
 import 'package:news_app/screens/leadings/setting.dart';
+import 'package:news_app/screens/login/book_mark.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => SavedArticle(),
+                                builder: (_) => BookMark(),
                               ),
                             ),
                           ),

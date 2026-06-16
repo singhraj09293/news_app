@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/article_model.dart';
+import 'package:news_app/screens/detailnews.dart';
 import 'package:news_app/services/news_service.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -75,21 +76,33 @@ class _SearchState extends State<Search> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           final article = snapshot.data![index];
-                          return Card(
-                            child: ListTile(
-                              title: Text(article.title),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(article.desc),
-                                  Text(
-                                    timeago.format(article.publishAt),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Detailnews(
+                                    articles: snapshot.data![index],
                                   ),
-                                ],
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: ListTile(
+                                title: Text(article.title),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(article.desc),
+                                    Text(
+                                      timeago.format(article.publishAt),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
