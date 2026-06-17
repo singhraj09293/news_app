@@ -21,13 +21,14 @@ class NewsService {
     }
   }
 
-  Future<List<ArticleModel>>?searchNews(String query) async {
+  Future<List<ArticleModel>>? searchNews(String query) async {
     final response = await dio.get(
       'everything',
       queryParameters: {
         'q': query,
         'apikey': Constraint.apiKey,
         'language': 'en',
+        'sortBy': 'publishAt',
       },
     );
     if (response.statusCode == 200) {

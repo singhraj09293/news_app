@@ -21,13 +21,23 @@ class BookMark extends StatelessWidget {
           .collection('bookMark')
           .snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
         if (snapshot.hasError) {
           return ScaffoldMessenger(child: SnackBar(content: Text('Error $e')));
         }
         if (snapshot.hasData) {
+          if (snapshot.data!.docs.isEmpty) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text('Saved'),
+              ),
+              body: Center(
+                child: Text(
+                  'Nothing Saved✋',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            );
+          }
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -62,32 +72,35 @@ class BookMark extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Card(
-                      elevation: 4,
-                      margin: EdgeInsets.only(bottom: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              article['title'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 4,
+                        margin: EdgeInsets.only(bottom: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                article['title'],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            Text(
-                              article['desc'],
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
+                              Text(
+                                article['desc'],
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

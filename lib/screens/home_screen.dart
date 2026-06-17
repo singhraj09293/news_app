@@ -12,12 +12,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<ArticleModel>> _newsFuture;
+  @override
+  void initState() {
+    super.initState();
+    _newsFuture = NewsService().getTopHeadlines();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('NEWs It')),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0D0D0D),
+        title: Text(
+          'NewzLy',
+          style: TextStyle(color:  Color(0xFFE63946), fontWeight: FontWeight.bold,fontSize: 24),
+        ),
+      ),
       body: FutureBuilder<List<ArticleModel>>(
-        future: NewsService().getTopHeadlines(),
+        future: _newsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -26,70 +39,88 @@ class _HomeScreenState extends State<HomeScreen> {
             return Text('Error ${snapshot.error}');
           }
           final article = snapshot.data!;
-          return ListView.builder(
-            padding: EdgeInsets.all(12),
-            itemCount: article.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => Detailnews(articles: article[index],)),
-                ),
-                child: Card(
-                  elevation: 4,
-                  margin: EdgeInsets.only(bottom: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.network(
-                          article[index].urlToImage,
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                                height: 200,
-                                color: Colors.grey[300],
-                                child: Center(child: Icon(Icons.broken_image)),
-                              ),
-                        ),
-                        SizedBox(height: 7),
-                        Text(
-                          timeago.format(article[index].publishAt),
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                        Text(
-                          article[index].title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          article[index].desc,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ],
+          return RefreshIndicator(
+            onRefresh: () async {
+              print('refreshing...');
+              setState(() {
+                _newsFuture = NewsService().getTopHeadlines();
+              });
+            },
+            child: ListView.builder(
+              padding: EdgeInsets.all(12),
+              itemCount: article.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => Detailnews(articles: article[index]),
                     ),
                   ),
-                ),
-              );
-            },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0F1923),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border(
+                        left: BorderSide(
+                          color: Color(0xFFE63946),
+                          width: 4,
+                        ), // ← red accent
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            article[index].urlToImage,
+                            height: 150,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Container(
+                                  height: 200,
+                                  color: Colors.grey[300],
+                                  child: Center(
+                                    child: Icon(Icons.broken_image),
+                                  ),
+                                ),
+                          ),
+                          SizedBox(height: 7),
+                          Text(
+                            timeago.format(article[index].publishAt),
+                            style: TextStyle(fontSize: 15, color: Colors.grey),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            article[index].title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            article[index].desc,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFFB0B0B0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
