@@ -47,6 +47,8 @@ class _DetailnewsState extends State<Detailnews> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: BackButton(onPressed: () => Navigator.pop(context)),
         actions: [
           IconButton(
@@ -60,68 +62,74 @@ class _DetailnewsState extends State<Detailnews> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.network(
-                widget.articles.urlToImage,
-                width: double.infinity,
-                height: 250,
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Icon(Icons.newspaper, color: Colors.grey),
-                  SizedBox(width: 5),
-                  Text(
-                    widget.articles.auther,
-                    style: TextStyle(fontSize: 10, color: Colors.black),
-                  ),
-                  Spacer(),
-                  Icon(Icons.access_time, color: Colors.grey),
-                  SizedBox(width: 5),
-                  Text(
-                    timeago.format(widget.articles.publishAt),
-                    style: TextStyle(fontSize: 12, color: Colors.black),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text(
-                widget.articles.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 23,
-                  color: Colors.black,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(
+            widget.articles.urlToImage,
+            width: double.infinity,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.newspaper, color: Color(0xFFE63946), size: 25),
+                    SizedBox(width: 5),
+                    Expanded(
+                      child: Text(
+                        widget.articles.auther,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFFB0B0B0),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.access_time, color: Color(0xFFE63946)),
+                    SizedBox(width: 5),
+                    Text(
+                      timeago.format(widget.articles.publishAt),
+                      style: TextStyle(fontSize: 15, color: Color(0xFFB0B0B0)),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                widget.articles.desc,
-                style: TextStyle(fontSize: 20, color: Colors.grey.shade900),
-              ),
-              SizedBox(height: 170),
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                  ),
-                  onPressed: () {
-                    launchUrl(Uri.parse(widget.articles.url));
-                  },
-                  child: Text(
-                    'Read Full Article',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                SizedBox(height: 10),
+                Text(
+                  widget.articles.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 23,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 10),
+                Text(
+                  widget.articles.content,
+                  style: TextStyle(fontSize: 20, color: Color(0xFFB0B0B0)),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFE63946)),
+          onPressed: () {
+            launchUrl(Uri.parse(widget.articles.url));
+          },
+          child: Text(
+            'Read Full Article',
+            style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
       ),

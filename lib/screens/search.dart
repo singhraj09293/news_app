@@ -23,28 +23,24 @@ class _SearchState extends State<Search> {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(12),
-              height: 55,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextField(
-                onSubmitted: (value) {
-                  setState(() {
-                    searchFuture = NewsService().searchNews(value);
-                  });
-                },
-                style: TextStyle(color: Colors.white),
-                controller: searchArticle,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Colors.white),
-                  border: InputBorder.none,
-                  hintText: 'Search News here',
-                  hintStyle: TextStyle(color: Colors.white),
+            TextField(
+              onSubmitted: (value) {
+                setState(() {
+                  searchFuture = NewsService().searchNews(value);
+                });
+              },
+              style: TextStyle(color: Colors.white),
+              controller: searchArticle,
+              decoration: InputDecoration(
+                fillColor: Color(0xFF1A1A1A),
+                filled: true,
+                prefixIcon: Icon(Icons.search, color: Colors.white),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Color(0xFFE63946)),
                 ),
+                hintText: 'Search News here',
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
             Expanded(
@@ -87,7 +83,19 @@ class _SearchState extends State<Search> {
                                 ),
                               );
                             },
-                            child: Card(
+                            child: Container(
+                              padding: EdgeInsets.only(bottom: 10),
+                              margin: EdgeInsets.only(bottom:15),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF0F1923),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border(
+                                  left: BorderSide(
+                                    color: Color(0xFFE63946),
+                                    width: 4,
+                                  ), // ← red accent
+                                ),
+                              ),
                               child: ListTile(
                                 title: Text(article.title),
                                 subtitle: Column(
