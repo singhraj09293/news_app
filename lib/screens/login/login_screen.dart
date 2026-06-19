@@ -32,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(
@@ -95,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen>
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Color(0xFF1A1A1A),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -109,10 +110,13 @@ class _LoginScreenState extends State<LoginScreen>
                           width: 350,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Color(0xffE2E8F0),
+                            color: Color(0xFF1A1A1A),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: TabBar(
+                            indicatorColor: Color(0xFFE63946),
+                            labelColor: Color(0xFFE63946),
+                            unselectedLabelColor: Colors.grey,
                             controller: _tabController,
                             tabs: [
                               Tab(text: 'Login'),
@@ -197,15 +201,16 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: Color(0xffE2E8F0),
+              color: Color(0xFF222222),
             ),
             child: TextField(
               controller: email,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email),
                 border: InputBorder.none,
+
                 hintText: 'E-mail ID',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
@@ -216,15 +221,16 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: Color(0xffE2E8F0),
+              color: Color(0xFF222222),
             ),
             child: TextField(
               controller: password,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock),
+
                 border: InputBorder.none,
                 hintText: 'Password',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
@@ -241,7 +247,7 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 child: Text(
                   'Forget Password?',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Color(0xFFE63946)),
                 ),
               ),
             ],
@@ -249,7 +255,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff2563EB),
+              backgroundColor: Color(0xFFE63946),
               fixedSize: Size(380, 65),
             ),
             onPressed: () {
@@ -371,7 +377,7 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Color(0xffE2E8F0),
+            color: Color(0xFF222222),
           ),
           child: TextField(
             controller: name,
@@ -379,7 +385,7 @@ class _RegisterState extends State<Register> {
               prefixIcon: Icon(Icons.person),
               border: InputBorder.none,
               hintText: 'Full Name',
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Colors.white),
             ),
           ),
         ),
@@ -390,7 +396,7 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Color(0xffE2E8F0),
+            color: Color(0xFF222222),
           ),
           child: TextField(
             controller: email,
@@ -398,7 +404,7 @@ class _RegisterState extends State<Register> {
               prefixIcon: Icon(Icons.mail),
               border: InputBorder.none,
               hintText: 'E-mail ID',
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Colors.white),
             ),
           ),
         ),
@@ -409,7 +415,7 @@ class _RegisterState extends State<Register> {
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Color(0xffE2E8F0),
+            color: Color(0xFF222222),
           ),
           child: TextField(
             controller: password,
@@ -417,7 +423,7 @@ class _RegisterState extends State<Register> {
               prefixIcon: Icon(Icons.lock),
               border: InputBorder.none,
               hintText: 'Password',
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Colors.white),
             ),
           ),
         ),
@@ -427,7 +433,7 @@ class _RegisterState extends State<Register> {
           width: 380,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Color(0xffE2E8F0),
+            color: Color(0xFF222222),
           ),
           child: TextField(
             controller: phoneno,
@@ -436,7 +442,7 @@ class _RegisterState extends State<Register> {
               prefixIcon: Icon(Icons.phone),
               border: InputBorder.none,
               hintText: 'Phone No',
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Colors.white),
               counterText: '',
               contentPadding: EdgeInsets.symmetric(vertical: 15),
             ),
@@ -445,7 +451,7 @@ class _RegisterState extends State<Register> {
         SizedBox(height: 50),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff2563EB),
+            backgroundColor: Color(0xFFE63946),
             fixedSize: Size(380, 65),
           ),
           onPressed: () {

@@ -1,13 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -29,18 +25,16 @@ class _SettingState extends State<Setting> {
   pickImage() async {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      final uri = Uri.parse(
+      final dio = Dio();
+      final response = await dio.post(
         'https://api.cloudinary.com/v1_1/dcvhz97f6/image/upload',
+        data: FormData.fromMap({
+          'upload_preset': 'tt9oy8gt',
+          'file': await MultipartFile.fromFile(image.path),
+        }),
       );
-      final request = http.MultipartRequest('POST', uri)
-        ..fields['upload_preset'] = 'tt9oy8gt'
-        ..files.add(await http.MultipartFile.fromPath('file', image.path));
-
-      final response = await request.send();
-      final responseData = await response.stream.bytesToString();
-      final jsonData = json.decode(responseData);
-      final url = jsonData['secure_url'];
-
+      final url = response.data['secure_url'];
+      print('URL: $url');
       await FirebaseAuth.instance.currentUser!.updatePhotoURL(url);
       setState(() {});
     }

@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/model/article_model.dart';
 import 'package:news_app/screens/detailnews.dart';
@@ -27,13 +26,11 @@ class BookMark extends StatelessWidget {
         if (snapshot.hasData) {
           if (snapshot.data!.docs.isEmpty) {
             return Scaffold(
-              appBar: AppBar(
-                title: Text('Saved'),
-              ),
+              appBar: AppBar(title: Text('Saved')),
               body: Center(
                 child: Text(
-                  'Nothing Saved✋',
-                  style: TextStyle(color: Colors.black),
+                  'Nothing Saved',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             );
@@ -42,7 +39,7 @@ class BookMark extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 'Saved Article',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             body: ListView.builder(
@@ -50,6 +47,12 @@ class BookMark extends StatelessWidget {
               itemBuilder: (context, index) {
                 final article = snapshot.data!.docs[index].data();
                 return Dismissible(
+                  background: Container(
+                    color: Color(0xFFE63946),
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 20),
+                    child: Icon(Icons.delete, color: Colors.white),
+                  ),
                   key: Key(snapshot.data!.docs[index].id),
                   direction: DismissDirection.startToEnd,
                   onDismissed: (direction) async {
@@ -74,29 +77,52 @@ class BookMark extends StatelessWidget {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        elevation: 4,
-                        margin: EdgeInsets.only(bottom: 8),
-                        shape: RoundedRectangleBorder(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0F1923),
                           borderRadius: BorderRadius.circular(20),
+                          border: Border(
+                            left: BorderSide(
+                              color: Color(0xFFE63946),
+                              width: 4,
+                            ),
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
+                          child: Row(
                             children: [
-                              Text(
-                                article['title'],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black,
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      article['title'],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      article['desc'],
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                article['desc'],
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey,
+                              SizedBox(height: 10),
+                              ClipRRect(
+                                borderRadius: BorderRadiusGeometry.circular(10),
+                                child: Image.network(
+                                  article['urlToImage'],
+                                  width: 100,
+                                  height: 150,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ],

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:news_app/screens/leadings/setting.dart';
-import 'package:news_app/screens/login/book_mark.dart';
+import 'package:news_app/screens/book_mark.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -23,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
+          await FirebaseAuth.instance.currentUser!.reload();
           setState(() {});
         },
         child: SingleChildScrollView(
@@ -46,8 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       decoration: BoxDecoration(color: Color(0xFFE63946)),
                       child: Center(
                         child: CircleAvatar(
-                          radius: 53,
+                          radius: 55,
                           backgroundColor: Colors.white,
+                          
                           child: CircleAvatar(
                             backgroundImage: user.photoURL != null
                                 ? NetworkImage(user.photoURL!)
