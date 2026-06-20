@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/model/article_model.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,12 +54,20 @@ class _DetailnewsState extends State<Detailnews> {
         actions: [
           IconButton(
             onPressed: () {
+              Share.share(widget.articles.url);
+            },
+            icon: Icon(Icons.share, color: Color(0xFFE63946)),
+          ),
+          IconButton(
+            onPressed: () {
               saveBookMark(widget.articles);
               setState(() {
                 isBooked = !isBooked;
               });
             },
-            icon: isBooked ? Icon(Icons.bookmark) : Icon(Icons.bookmark_border),
+            icon: isBooked
+                ? Icon(Icons.bookmark, color: Color(0xFFE63946))
+                : Icon(Icons.bookmark_border),
           ),
         ],
       ),
@@ -75,6 +84,7 @@ class _DetailnewsState extends State<Detailnews> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
+           
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +122,10 @@ class _DetailnewsState extends State<Detailnews> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  widget.articles.content,
+                  widget.articles.content
+                      .replaceAll(RegExp(r'<[^>]*>'), '')
+                      .replaceAll(RegExp(r'\[\+\d+ chars\]'), '')
+                      .trim(),
                   style: TextStyle(fontSize: 20, color: Color(0xFFB0B0B0)),
                 ),
               ],

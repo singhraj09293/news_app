@@ -28,22 +28,38 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/icon/logo.jpg', height: 200, width: 200),
-            SizedBox(height: 20),
-            Text(
-              'NewzLy',
-              style: TextStyle(color: Color(0xFFE63946), fontSize: 30),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icon/logo.jpg', height: 200, width: 200),
+                SizedBox(height: 20),
+                Text(
+                  'NewzLy',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFE63946),
+                    fontSize: 30,
+                  ),
+                ),
+                Text(
+                  'News that moves with you',
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                ),
+              ],
             ),
-            Text(
-              'Stay ahead of the headlines.',
-              style: TextStyle(color: Colors.white, fontSize: 22),
+          ),
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: CircularProgressIndicator(color: Color(0xFFE63946)),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -43,6 +43,7 @@ class _SearchState extends State<Search> {
                 hintStyle: TextStyle(color: Colors.white),
               ),
             ),
+           SizedBox(height: 10,),
             Expanded(
               child: FutureBuilder(
                 future: searchFuture,
@@ -84,8 +85,8 @@ class _SearchState extends State<Search> {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.only(bottom: 10),
-                              margin: EdgeInsets.only(bottom:15),
+                              padding: EdgeInsets.symmetric(vertical:  10,horizontal: 10),
+                              margin: EdgeInsets.symmetric(vertical: 7,horizontal: 5),
                               decoration: BoxDecoration(
                                 color: Color(0xFF0F1923),
                                 borderRadius: BorderRadius.circular(20),
