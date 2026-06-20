@@ -21,7 +21,7 @@ class _DetailnewsState extends State<Detailnews> {
     checkBookMark();
   }
 
-  checkBookMark() async {
+  void checkBookMark() async {
     final user = FirebaseAuth.instance.currentUser;
     final snapshot = await FirebaseFirestore.instance
         .collection('user')
