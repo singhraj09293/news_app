@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/article_model.dart';
 import 'package:news_app/screens/detailnews.dart';
-import 'package:news_app/services/news_service.dart';
+import 'package:news_app/screens/services/news_service.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Search extends StatefulWidget {
