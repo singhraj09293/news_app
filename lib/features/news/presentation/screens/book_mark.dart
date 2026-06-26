@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/model/article_model.dart';
-import 'package:news_app/screens/detailnews.dart';
+import 'package:news_app/features/news/data/model/article_model.dart';
+import 'package:news_app/features/news/presentation/screens/detailnews.dart';
 
 class BookMark extends StatelessWidget {
   const BookMark({super.key});

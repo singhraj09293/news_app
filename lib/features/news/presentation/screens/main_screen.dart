@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/home_screen.dart';
-import 'package:news_app/screens/profile_screen.dart';
-import 'package:news_app/screens/search.dart';
+import 'package:news_app/features/news/presentation/screens/home_screen.dart';
+import 'package:news_app/features/news/presentation/screens/profile_screen.dart';
+import 'package:news_app/features/news/presentation/screens/search.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

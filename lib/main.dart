@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/splash_screen.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news_app/features/news/presentation/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFF0D0D0D),
         brightness: Brightness.dark,
       ),
-      debugShowCheckedModeBanner: false, home:SplashScreen());
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }

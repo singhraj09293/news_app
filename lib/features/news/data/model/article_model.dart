@@ -1,44 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class ArticleModel {
-  final String title;
-  final String desc;
-  final String urlToImage;
-  final String url;
-  final DateTime publishAt;
-  final String auther;
-  final String content;
+import 'package:news_app/features/news/domain/entities/article.dart';
 
+class ArticleModel extends Article {
   ArticleModel({
-    required this.title,
-    required this.desc,
-    required this.urlToImage,
-    required this.url,
-    required this.publishAt,
-    required this.auther,
-    required this.content,
-  });
-
-  ArticleModel copyWith({
-    String? title,
-    String? desc,
-    String? urlToImage,
-    String? url,
-    DateTime? publishAt,
-    String? auther,
-    String? content,
-  }) {
-    return ArticleModel(
-      title: title ?? this.title,
-      desc: desc ?? this.desc,
-      urlToImage: urlToImage ?? this.urlToImage,
-      url: url ?? this.url,
-      publishAt: publishAt ?? this.publishAt,
-      auther: auther ?? this.auther,
-      content: content ?? this.content,
-    );
-  }
+    required String title,
+    required String desc,
+    required String urlToImage,
+    required String url,
+    required DateTime publishAt,
+    required String auther,
+    required String content,
+  }) : super(
+         title: title,
+         desc: desc,
+         urlToImage: urlToImage,
+         url: url,
+         publishAt: publishAt,
+         auther: auther,
+         content: content,
+       );
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/login/login_screen.dart';
-import 'package:news_app/screens/main_screen.dart';
+import 'package:news_app/features/news/presentation/screens/login/login_screen.dart';
+import 'package:news_app/features/news/presentation/screens/main_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/model/article_model.dart';
-import 'package:news_app/screens/detailnews.dart';
-import 'package:news_app/screens/services/news_service.dart';
+import 'package:news_app/features/news/data/model/article_model.dart';
+import 'package:news_app/features/news/data/repositoires/news_repository_impl.dart';
+import 'package:news_app/features/news/presentation/screens/detailnews.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Search extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SearchState extends State<Search> {
             TextField(
               onSubmitted: (value) {
                 setState(() {
-                  searchFuture = NewsService().searchNews(value);
+                  searchFuture = NewsRepositoryImpl().searchNews(value);
                 });
               },
               style: TextStyle(color: Colors.white),
@@ -43,7 +43,7 @@ class _SearchState extends State<Search> {
                 hintStyle: TextStyle(color: Colors.white),
               ),
             ),
-           SizedBox(height: 10,),
+            SizedBox(height: 10),
             Expanded(
               child: FutureBuilder(
                 future: searchFuture,
@@ -85,8 +85,14 @@ class _SearchState extends State<Search> {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical:  10,horizontal: 10),
-                              margin: EdgeInsets.symmetric(vertical: 7,horizontal: 5),
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 10,
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                vertical: 7,
+                                horizontal: 5,
+                              ),
                               decoration: BoxDecoration(
                                 color: Color(0xFF0F1923),
                                 borderRadius: BorderRadius.circular(20),

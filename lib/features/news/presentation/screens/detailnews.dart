@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/model/article_model.dart';
+import 'package:news_app/features/news/domain/entities/article.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
 class Detailnews extends StatefulWidget {
-  final ArticleModel articles;
+  final Article articles;
   const Detailnews({super.key, required this.articles});
 
   @override
@@ -35,7 +35,7 @@ class _DetailnewsState extends State<Detailnews> {
     });
   }
 
-  saveBookMark(ArticleModel article) async {
+  saveBookMark(Article article) async {
     final user = FirebaseAuth.instance.currentUser;
     await FirebaseFirestore.instance
         .collection('user')

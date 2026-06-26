@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:news_app/screens/leadings/setting.dart';
-import 'package:news_app/screens/book_mark.dart';
+import 'package:news_app/features/news/presentation/screens/leadings/setting.dart';
+import 'package:news_app/features/news/presentation/screens/book_mark.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
